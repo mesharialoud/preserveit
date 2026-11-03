@@ -1,7 +1,7 @@
 (function(){
   var root=document.documentElement, KEY="pi-theme";
   function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
-  function apply(t){root.setAttribute("data-theme",t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",t==="dark"?"#11151B":"#FBF7F1");
+  function apply(t){root.setAttribute("data-theme",t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",t==="dark"?"#0F1E2A":"#FFFFFF");
     document.dispatchEvent(new CustomEvent("themechange",{detail:t}))}
   var saved=store(KEY);
   var sys=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";

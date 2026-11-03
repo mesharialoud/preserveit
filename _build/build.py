@@ -25,7 +25,7 @@ def wa(lang):
     return f"https://wa.me/{WHATSAPP}?text={urllib.parse.quote(msg)}"
 
 I = {  # inline icons
- "logo": '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="var(--accent-soft)"/><path d="M16 6c4 5 7 8.6 7 12.4A7 7 0 0 1 9 18.4C9 14.6 12 11 16 6z" fill="var(--accent)"/><circle cx="13.4" cy="18.6" r="1.9" fill="#fff" opacity=".6"/></svg>',
+ "logo": '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="#366688"/><path d="M3 21 29 15v3L4 24z" fill="#89D0B1"/><path d="M16 6c4 5 7 8.6 7 12.4A7 7 0 0 1 9 18.4C9 14.6 12 11 16 6z" fill="#5AA6E5"/><path d="M17 22.6l8-1.6" stroke="#F4BBD1" stroke-width="2"/><circle cx="13.4" cy="18.6" r="1.9" fill="#fff" opacity=".6"/></svg>',
  "moon": '<svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>',
  "sun": '<svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
  "menu": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
@@ -345,7 +345,7 @@ def head(lang, key, title, desc, extra_ld=None):
 <link rel="alternate" hreflang="en" href="{url('en',key)}">
 <link rel="alternate" hreflang="ar" href="{url('ar',key)}">
 <link rel="alternate" hreflang="x-default" href="{url('en',key)}">
-<meta name="theme-color" content="#FBF7F1">
+<meta name="theme-color" content="#FFFFFF">
 <meta property="og:type" content="{'article' if key=='safety' else 'website'}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
@@ -403,9 +403,17 @@ def footer(lang):
 </body></html>
 """
 
-FALLBACK_SVG = """<svg class="fallback" viewBox="0 0 400 400" aria-hidden="true"><defs><linearGradient id="pg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#FAF6F0"/><stop offset="1" stop-color="#EADFD0"/></linearGradient></defs>
-<path d="M120 70h160l10 250q-90 20-180 0z" fill="url(#pg)" stroke="#E0D4C4"/><rect x="118" y="70" width="164" height="22" fill="#EDE4D7"/><path d="M114 250h172l4 70q-90 20-180 0z" fill="#B8694F"/>
-<path d="M200 120c14 17 24 30 24 43a24 24 0 0 1-48 0c0-13 10-26 24-43z" fill="#B8694F"/><text x="200" y="215" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="26" fill="#1F2733">Preserve It</text></svg>"""
+FALLBACK_SVG = """<svg class="fallback" viewBox="0 0 400 400" aria-hidden="true"><defs><linearGradient id="pg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#EEEEEE"/></linearGradient></defs>
+<path d="M120 70h160l10 250q-90 20-180 0z" fill="url(#pg)" stroke="#DDE2E7"/><rect x="118" y="70" width="164" height="22" fill="#E6E9EC"/><path d="M114 250h172l4 70q-90 20-180 0z" fill="#366688"/>
+<path d="M200 120c14 17 24 30 24 43a24 24 0 0 1-48 0c0-13 10-26 24-43z" fill="#5AA6E5"/><text x="200" y="215" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="26" fill="#1B3347">Preserve It</text></svg>"""
+
+PANELS = """<svg class="panels" viewBox="0 0 400 400" preserveAspectRatio="none" aria-hidden="true">
+<rect width="400" height="400" fill="#EEEEEE"/>
+<polygon points="0,0 400,0 400,112 0,178" fill="#366688"/>
+<polygon points="0,198 176,168 176,264 0,252" fill="#89D0B1"/>
+<polygon points="196,165 400,131 400,290 196,267" fill="#F4BBD1"/>
+<polygon points="0,272 400,310 400,372 0,330" fill="#5AA6E5"/>
+</svg>"""
 
 def page_home(lang):
     h, t = HOME[lang], T[lang]
@@ -421,7 +429,7 @@ def page_home(lang):
   <div class="cta-row"><a class="btn btn-primary" href="{wa(lang)}" rel="noopener">{I['wa']}{t['book']}</a><a class="btn btn-ghost" href="#offers">{h['cta2']}</a></div>
   <ul class="chips">{chips}</ul>
  </div>
- <div class="stage" id="stage" role="img" aria-label="3D model of a Preserve It pouch">{FALLBACK_SVG}<span class="hint">{t['hint']}</span></div>
+ <div class="stage" id="stage" role="img" aria-label="3D model of a Preserve It pouch">{PANELS}{FALLBACK_SVG}<span class="hint">{t['hint']}</span></div>
 </div><div class="wrap"><div class="stats reveal">{stats}</div></div></section>
 """
     steps = "".join(f'<li class="step reveal"><h3>{a}</h3><p>{b}</p></li>' for a,b in h["steps"])
@@ -530,7 +538,7 @@ for lang in ("en","ar"):
 write("sitemap.xml", sitemap())
 write("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {BASE}/sitemap.xml\n")
 write("CNAME", "www.preserveit.com\n")
-write("assets/favicon.svg", '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#F4E1D8"/><path d="M16 6c4 5 7 8.6 7 12.4A7 7 0 0 1 9 18.4C9 14.6 12 11 16 6z" fill="#B8694F"/></svg>')
+write("assets/favicon.svg", '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#366688"/><path d="M16 6c4 5 7 8.6 7 12.4A7 7 0 0 1 9 18.4C9 14.6 12 11 16 6z" fill="#5AA6E5"/></svg>')
 write("404.html", head("en","home","Page not found | Preserve It","Page not found").replace('href="assets','href="/assets').replace('src="assets','src="/assets')
       + '<main class="wrap" style="padding:80px 20px;text-align:center"><h1>Page not found</h1><p class="lead" style="margin-inline:auto">لم يتم العثور على الصفحة</p>'
       + '<div class="cta-row" style="justify-content:center"><a class="btn btn-primary" href="/">Home</a><a class="btn btn-ghost" href="/ar/">الرئيسية</a></div></main></body></html>')

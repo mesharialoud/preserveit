@@ -11,14 +11,14 @@
     ctx.bezierCurveTo(22,-20,38,0,38,22);ctx.arc(0,22,38,0,Math.PI,false);ctx.bezierCurveTo(-38,0,-22,-20,0,-50);ctx.closePath();
     ctx.fillStyle=col;ctx.fill();ctx.beginPath();ctx.arc(-12,20,9,0,Math.PI*2);ctx.fillStyle="rgba(255,255,255,.55)";ctx.fill();ctx.restore()}
 
-  var CREAM="#F5EFE6", TERRA="#B8694F", INK="#1F2733";
+  var CREAM="#F7F8FA", TERRA="#366688", INK="#1B3347", MINT="#89D0B1", PINK="#F4BBD1", SKY="#5AA6E5";
   function front(){
     var c=document.createElement("canvas");c.width=1024;c.height=1440;var x=c.getContext("2d");
-    var g=x.createLinearGradient(0,0,1024,1440);g.addColorStop(0,"#FAF6F0");g.addColorStop(1,"#EFE7DB");x.fillStyle=g;x.fillRect(0,0,1024,1440);
+    var g=x.createLinearGradient(0,0,1024,1440);g.addColorStop(0,"#FFFFFF");g.addColorStop(1,"#EEEEEE");x.fillStyle=g;x.fillRect(0,0,1024,1440);
     // top seal texture
     x.fillStyle="rgba(0,0,0,.035)";for(var i=0;i<1024;i+=10){x.fillRect(i,0,5,110)}
     x.strokeStyle="rgba(31,39,51,.18)";x.lineWidth=4;x.setLineDash([14,10]);x.beginPath();x.moveTo(40,170);x.lineTo(984,170);x.stroke();x.setLineDash([]);
-    drop(x,512,360,1.5,TERRA);
+    drop(x,512,360,1.5,SKY);
     x.fillStyle=INK;x.textAlign="center";
     x.font="600 112px Fraunces, Georgia, serif";x.fillText("Preserve It",512,560);
     x.font="700 76px 'IBM Plex Sans Arabic', sans-serif";x.fillText("بريزيرف إت",512,664);
@@ -26,7 +26,7 @@
     x.fillStyle="#4A5463";x.font="500 44px 'Plus Jakarta Sans', sans-serif";x.fillText("Freeze-dried breast milk",512,790);
     x.font="500 44px 'IBM Plex Sans Arabic', sans-serif";x.fillText("حليب أم مجفّد بالتجميد",512,856);
     // band
-    x.fillStyle=TERRA;x.fillRect(0,1010,1024,430);
+    x.fillStyle=MINT;x.beginPath();x.moveTo(0,930);x.lineTo(470,900);x.lineTo(470,975);x.lineTo(0,1000);x.fill();x.fillStyle=PINK;x.beginPath();x.moveTo(500,898);x.lineTo(1024,866);x.lineTo(1024,945);x.lineTo(500,973);x.fill();x.fillStyle=TERRA;x.beginPath();x.moveTo(0,1030);x.lineTo(1024,980);x.lineTo(1024,1440);x.lineTo(0,1440);x.fill();
     x.fillStyle="#FFF";x.font="700 50px 'Plus Jakarta Sans', sans-serif";x.fillText("ONE MOTHER · ONE BATCH",512,1120);
     x.font="700 52px 'IBM Plex Sans Arabic', sans-serif";x.fillText("أم واحدة · دفعة واحدة",512,1200);
     x.font="500 38px 'Plus Jakarta Sans', sans-serif";x.globalAlpha=.85;x.fillText("100 g  ·  Made in Kuwait",512,1300);x.globalAlpha=1;
@@ -45,15 +45,15 @@
     x.fillStyle=INK;var s=18,ox=90,oy=830;for(var a=0;a<14;a++)for(var b=0;b<14;b++){if(((a*7+b*13+a*b)%5)<2||(a<3&&b<3)||(a>10&&b<3)||(a<3&&b>10))x.fillRect(ox+a*s,oy+b*s,s-2,s-2)}
     x.font="500 34px 'Plus Jakarta Sans', sans-serif";x.fillStyle="#4A5463";x.fillText("Scan to trace this pouch",380,900);
     x.font="500 34px 'IBM Plex Sans Arabic', sans-serif";x.fillText("امسحي الرمز لتتبّع هذا الكيس",380,950);
-    x.fillStyle=TERRA;x.fillRect(0,1240,1024,200);
+    x.fillStyle=SKY;x.fillRect(0,1240,1024,200);x.fillStyle=TERRA;x.fillRect(0,1300,1024,140);
     return c;
   }
-  function sachet(){
+  function sachet(band){
     var c=document.createElement("canvas");c.width=256;c.height=1024;var x=c.getContext("2d");
-    x.fillStyle=CREAM;x.fillRect(0,0,256,1024);x.fillStyle=TERRA;x.fillRect(0,700,256,324);
-    drop(x,128,170,.75,TERRA);x.save();x.translate(128,470);x.rotate(-Math.PI/2);x.fillStyle=INK;x.textAlign="center";
+    x.fillStyle=CREAM;x.fillRect(0,0,256,1024);x.fillStyle=band;x.fillRect(0,700,256,324);
+    drop(x,128,170,.75,SKY);x.save();x.translate(128,470);x.rotate(-Math.PI/2);x.fillStyle=INK;x.textAlign="center";
     x.font="600 64px Fraunces, Georgia, serif";x.fillText("Preserve It",0,22);x.restore();
-    x.fillStyle="#FFF";x.textAlign="center";x.font="700 40px 'Plus Jakarta Sans', sans-serif";x.fillText("4 oz",128,880);
+    x.fillStyle=band===TERRA?"#FFF":INK;x.textAlign="center";x.font="700 40px 'Plus Jakarta Sans', sans-serif";x.fillText("4 oz",128,880);
     return c;
   }
   function tex(c){var t=new T.CanvasTexture(c);t.encoding=T.sRGBEncoding;t.anisotropy=8;return t}
@@ -76,20 +76,19 @@
   renderer.outputEncoding=T.sRGBEncoding;
   stage.insertBefore(renderer.domElement,stage.firstChild);
   var scene=new T.Scene(),cam=new T.PerspectiveCamera(32,1,.1,50);cam.position.set(0,.15,6.4);
-  scene.add(new T.HemisphereLight(0xffffff,0xd8c8b8,.85));
+  scene.add(new T.HemisphereLight(0xffffff,0xcfd8e0,.85));
   var key=new T.DirectionalLight(0xffffff,.85);key.position.set(-3,4,5);scene.add(key);
-  var rim=new T.DirectionalLight(0xffe6d6,.55);rim.position.set(4,1,-4);scene.add(rim);
+  var rim=new T.DirectionalLight(0xdcecff,.55);rim.position.set(4,1,-4);scene.add(rim);
 
   var group=new T.Group();group.position.x=-.38;scene.add(group);
-  var side=new T.MeshStandardMaterial({color:0xF1EADF,roughness:.6});
+  var side=new T.MeshStandardMaterial({color:0xEEEEEE,roughness:.6});
   var mats=[side,side,side,side,null,null];
   function build(){
     mats[4]=new T.MeshStandardMaterial({map:tex(front()),roughness:.55,metalness:.04});
     mats[5]=new T.MeshStandardMaterial({map:tex(back()),roughness:.55,metalness:.04});
     var pouch=new T.Mesh(pouchGeo(1.6,2.25,.62),mats);group.add(pouch);
-    var sm=new T.MeshStandardMaterial({map:tex(sachet()),roughness:.5});
-    var sMats=[side,side,side,side,sm,sm];
-    for(var k=0;k<2;k++){var s=new T.Mesh(pouchGeo(.36,1.55,.09),sMats);s.position.set(1.15+k*.42,-.36,-.35-k*.25);s.rotation.y=-.35;group.add(s)}
+    var bands=[PINK,MINT];
+    for(var k=0;k<2;k++){var sm=new T.MeshStandardMaterial({map:tex(sachet(bands[k])),roughness:.5});var sMats=[side,side,side,side,sm,sm];var s=new T.Mesh(pouchGeo(.36,1.55,.09),sMats);s.position.set(1.15+k*.42,-.36,-.35-k*.25);s.rotation.y=-.35;group.add(s)}
     if(fb)fb.style.display="none";
   }
   var fontsReady=(document.fonts&&document.fonts.load)?Promise.all([
